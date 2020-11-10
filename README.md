@@ -25,12 +25,24 @@ If you haven't already set up Laravel and Laravel Valet then you'll need to foll
 10. `mysql_secure_installation`
 
 ### Getting Started
+First, you'll need to set up a database for the tables to be created in. By default we call this `connex` within the `.env.example` file.
+1. Start up mysql
+    `mysql -u root`
+2. Run the create database command
+    `CREATE DATABASE connex;`
+3. Exit out of mysql
+    `exit`
+
+
 To clone this repository and set everything up, run the following commands
 1. `cd connex`
 2. `composer update`
 3. `npm i`
-4. `php artisan migrate`
-5. `php artisan db:seed`
+4. `cat .env.example > .env`
+5. Edit the contents of the new `.env` file
+    - Add your database credentials (required for next steps)
+6. `php artisan migrate`
+7. `php artisan db:seed`
 
 ### Run the Queue Worker
 `php artisan queue:work`
