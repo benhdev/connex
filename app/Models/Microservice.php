@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Log;
+
 class Microservice extends Model
 {
     use HasFactory;
@@ -14,4 +16,9 @@ class Microservice extends Model
     protected $casts = [
         'blocked_campaigns' => 'array'
     ];
+
+    public function send($payload)
+    {
+        Log::info('Sending payload to: ' . $this->api_url);
+    }
 }
