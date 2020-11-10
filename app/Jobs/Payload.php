@@ -53,6 +53,8 @@ class Payload implements ShouldQueue
             })
             ->get();
 
-        Log::info($microservices);
+        foreach ($microservices as $index => $microservice) {
+            $microservice->send($this->request);
+        }
     }
 }
