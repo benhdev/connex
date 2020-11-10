@@ -2,7 +2,17 @@
 > **Author**
 > Ben Hirst
 
+The main functionality behind this project lives within the `app` folder. When an incoming request hits the payload endpoint (routes to `App\Http\Controllers\Api\PayloadController@payload`) within the api route it'll dispatch a `Payload` job to be processed. This currently works off the database Queue connection, which reads data from the `jobs` table within the database. The `Payload` job (`App\Jobs\Payload`) loads the Microservices we need to send the payload to using eloquent queries on the Microservice model (`App\Models\Microservice`)
+
+#### Key files:
+1. `app/Http/Controllers/Api/PayloadController.php`
+2. `app/Jobs/Payload.php`
+3. `app/Models/Microservice.php`
+
+I've used a model & database table for storing the Microservice data as I imagine a dashboard could be created in order to allow changing the permissions for these microservices.
+
 ### Installation
+If you haven't already set up Laravel and Laravel Valet then you'll need to follow the steps below
 1. `brew update`
 2. `brew install php`
 3. Install [Composer](https://getcomposer.org/)
@@ -22,12 +32,12 @@ To clone this repository and set everything up, run the following commands
 4. `php artisan migrate`
 5. `php artisan db:seed`
 
+### Run the Queue Worker
+`php artisan queue:work`
+
 ### Logs
 In order to see which Microservices the request payload will be sent to, you'll need to view the logs:
 `tail -f storage/logs/laravel.log`
-
-### Run the Queue Worker
-`php artisan queue:work`
 
 ### Making a request
 ```
